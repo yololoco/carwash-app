@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { SocialLogin } from "@/components/auth/social-login";
 import { Droplets, Loader2 } from "lucide-react";
 
 export default function RegisterPage() {
@@ -66,6 +67,7 @@ export default function RegisterPage() {
           <CardTitle className="mt-4 text-2xl">{t("title")}</CardTitle>
         </CardHeader>
         <CardContent>
+          <SocialLogin mode="register" />
           <form onSubmit={handleRegister} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="fullName">{t("fullName")}</Label>
