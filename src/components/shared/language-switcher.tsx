@@ -1,16 +1,15 @@
 "use client";
 
 import { useLocale } from "next-intl";
-import { useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export function LanguageSwitcher() {
   const locale = useLocale();
-  const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+  const [isPending, setIsPending] = useState(false);
 
   const toggleLocale = async () => {
     const newLocale = locale === "es" ? "en" : "es";
+    setIsPending(true);
 
     await fetch("/api/locale", {
       method: "POST",
@@ -18,9 +17,7 @@ export function LanguageSwitcher() {
       body: JSON.stringify({ locale: newLocale }),
     });
 
-    startTransition(() => {
-      router.refresh();
-    });
+    window.location.reload();
   };
 
   return (

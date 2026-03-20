@@ -1,21 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { auth } from "@clerk/nextjs/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { generateDailySchedule } from "@/lib/scheduling/fair-scheduler";
 
 export async function POST(req: NextRequest) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-
-  if (!user) {
+  const { userId } = await auth();
+  if (!userId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  // Check admin role
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data: profile } = await (supabase as any)
+  const admin = createAdminClient() as any;
+
+  // Check admin role
+  const { data: profile } = await admin
     .from("profiles")
     .select("role")
-    .eq("id", user.id)
+    .eq("clerk_id", userId)
     .single();
 
   if (profile?.role !== "admin") {

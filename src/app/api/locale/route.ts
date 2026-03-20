@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { auth } from "@clerk/nextjs/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 
 export async function POST(request: NextRequest) {
   try {
@@ -23,17 +24,15 @@ export async function POST(request: NextRequest) {
 
     // If user is authenticated, also update their profile preference
     try {
-      const supabase = await createClient();
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
+      const { userId } = await auth();
 
-      if (user) {
+      if (userId) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        await (supabase as any)
+        const admin = createAdminClient() as any;
+        await admin
           .from("profiles")
           .update({ preferred_language: locale })
-          .eq("id", user.id);
+          .eq("clerk_id", userId);
       }
     } catch {
       // Not authenticated or DB error — ignore, cookie is still set

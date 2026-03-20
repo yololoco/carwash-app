@@ -14,6 +14,7 @@ interface Profile {
   role: UserRole;
   preferred_language: string;
   referral_code: string | null;
+  clerk_id: string | null;
 }
 
 export function useAuth() {
@@ -66,19 +67,18 @@ export function useAuth() {
       } else {
         // Profile doesn't exist yet — create one
         // This handles the case where Clerk user signed up but no Supabase profile exists
-        const newProfile = {
-          id: clerkUser!.id,
+        const { data: newRow } = await db.from("profiles").insert({
+          id: crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2),
           email: email || "",
           full_name: clerkUser!.fullName || clerkUser!.firstName || email || "",
           phone: clerkUser!.primaryPhoneNumber?.phoneNumber || null,
           avatar_url: clerkUser!.imageUrl || null,
           role: "customer" as UserRole,
           preferred_language: "es",
+          clerk_id: clerkUser!.id,
           referral_code: clerkUser!.id.slice(0, 8).toUpperCase(),
-        };
-
-        await db.from("profiles").upsert(newProfile, { onConflict: "email" });
-        setProfile(newProfile);
+        }).select().single();
+        if (newRow) setProfile(newRow as Profile);
       }
 
       setLoading(false);

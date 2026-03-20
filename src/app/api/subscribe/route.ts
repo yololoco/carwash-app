@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { auth } from "@clerk/nextjs/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getStripe } from "@/lib/stripe/client";
 import { createPreapproval } from "@/lib/mercadopago/client";
 
 export async function POST(req: NextRequest) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) {
+  const { userId } = await auth();
+  if (!userId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -49,8 +48,8 @@ export async function POST(req: NextRequest) {
   // Get or create profile payment IDs
   const { data: profile } = await admin
     .from("profiles")
-    .select("email, full_name, stripe_customer_id, mercadopago_customer_id")
-    .eq("id", user.id)
+    .select("id, email, full_name, stripe_customer_id, mercadopago_customer_id")
+    .eq("clerk_id", userId)
     .single();
 
   if (!profile) {
@@ -61,7 +60,7 @@ export async function POST(req: NextRequest) {
   const { data: subscription, error: subError } = await admin
     .from("subscriptions")
     .insert({
-      customer_id: user.id,
+      customer_id: profile.id,
       car_id,
       package_id,
       location_id,
@@ -90,13 +89,13 @@ export async function POST(req: NextRequest) {
       const customer = await getStripe().customers.create({
         email: profile.email,
         name: profile.full_name,
-        metadata: { supabase_id: user.id },
+        metadata: { supabase_id: profile.id },
       });
       stripeCustomerId = customer.id;
       await admin
         .from("profiles")
         .update({ stripe_customer_id: stripeCustomerId })
-        .eq("id", user.id);
+        .eq("id", profile.id);
     }
 
     const session = await getStripe().checkout.sessions.create({
@@ -119,10 +118,10 @@ export async function POST(req: NextRequest) {
       subscription_data: {
         metadata: {
           subscription_id: subscription.id,
-          customer_id: user.id,
+          customer_id: profile.id,
         },
       },
-      metadata: { customer_id: user.id },
+      metadata: { customer_id: profile.id },
       success_url: `${appUrl}/subscriptions?success=true`,
       cancel_url: `${appUrl}/subscribe/${package_id}?cancelled=true`,
     });
@@ -164,7 +163,7 @@ export async function POST(req: NextRequest) {
       .eq("id", subscription.id);
 
     await admin.from("payments").insert({
-      customer_id: user.id,
+      customer_id: profile.id,
       subscription_id: subscription.id,
       payment_provider: "cash",
       payment_method: "cash",
