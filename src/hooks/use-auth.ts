@@ -35,13 +35,31 @@ export function useAuth() {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const db = createClient() as any;
 
-      // Try to find existing profile by Clerk user ID or email
+      // Try to find existing profile by clerk_id first, then email
       const email = clerkUser!.primaryEmailAddress?.emailAddress;
-      const { data } = await db
+      const clerkId = clerkUser!.id;
+
+      // First try clerk_id
+      let { data } = await db
         .from("profiles")
-        .select("id, email, full_name, phone, avatar_url, role, preferred_language, referral_code")
-        .eq("email", email)
+        .select("id, email, full_name, phone, avatar_url, role, preferred_language, referral_code, clerk_id")
+        .eq("clerk_id", clerkId)
         .single();
+
+      // If not found by clerk_id, try email (for profiles created before Clerk migration)
+      if (!data && email) {
+        const emailResult = await db
+          .from("profiles")
+          .select("id, email, full_name, phone, avatar_url, role, preferred_language, referral_code, clerk_id")
+          .eq("email", email)
+          .single();
+        data = emailResult.data;
+
+        // Link the clerk_id to this profile
+        if (data && !data.clerk_id) {
+          await db.from("profiles").update({ clerk_id: clerkId }).eq("id", data.id);
+        }
+      }
 
       if (data) {
         setProfile(data as Profile);
