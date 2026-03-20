@@ -1,0 +1,352 @@
+{
+  "common": {
+    "save": "Guardar cambios",
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "add": "Agregar",
+    "back": "Volver",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "loading": "Cargando...",
+    "saved": "Guardado",
+    "error": "Error",
+    "success": "Exito",
+    "confirm": "Confirmar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "noResults": "Sin resultados",
+    "retry": "Reintentar",
+    "yes": "Si",
+    "no": "No",
+    "or": "o",
+    "and": "y",
+    "of": "de",
+    "signOut": "Cerrar sesion",
+    "myProfile": "Mi perfil",
+    "settings": "Configuracion",
+    "nav": {
+      "dashboard": "Inicio",
+      "cars": "Mis autos",
+      "bookings": "Mis lavados",
+      "packages": "Planes",
+      "book": "Reservar",
+      "profile": "Perfil",
+      "notifications": "Notificaciones",
+      "settings": "Configuracion"
+    },
+    "status": {
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "pending": "Pendiente",
+      "confirmed": "Confirmado",
+      "inProgress": "En progreso",
+      "completed": "Completado",
+      "cancelled": "Cancelado",
+      "noShow": "No asistio"
+    }
+  },
+
+  "landing": {
+    "nav": {
+      "login": "Iniciar sesion",
+      "register": "Registrarse"
+    },
+    "hero": {
+      "eyebrow": "Lavado profesional en tu edificio",
+      "title1": "Tu auto,",
+      "title2": "siempre",
+      "titleHighlight": "impecable",
+      "subtitle": "Lavamos tu auto mientras trabajas o descansas. Sin citas, sin filas.",
+      "subtitleBold": "Solo resultados impecables.",
+      "ctaPrimary": "Empieza gratis",
+      "ctaSecondary": "Como funciona",
+      "socialProof": "autos lavados este mes"
+    },
+    "howItWorks": {
+      "title": "Asi de",
+      "titleHighlight": "simple",
+      "subtitle": "4 pasos. 2 minutos. Auto impecable.",
+      "step01": {
+        "title": "Registra tu auto",
+        "desc": "Placa y foto. 30 segundos."
+      },
+      "step02": {
+        "title": "Elige tu plan",
+        "desc": "Semanal, quincenal o unico."
+      },
+      "step03": {
+        "title": "Nosotros vamos",
+        "desc": "Lavamos en tu estacionamiento."
+      },
+      "step04": {
+        "title": "Fotos del resultado",
+        "desc": "Evidencia antes y despues."
+      }
+    },
+    "features": {
+      "title": "Todo bajo",
+      "titleHighlight": "control",
+      "subtitle": "Tecnologia que protege tu auto y te da tranquilidad total.",
+      "photoEvidence": {
+        "title": "Fotos antes y despues",
+        "desc": "Evidencia fotografica de cada lavado."
+      },
+      "damageDoc": {
+        "title": "Danos documentados",
+        "desc": "Danos previos quedan registrados."
+      },
+      "liveChat": {
+        "title": "Chat en tiempo real",
+        "desc": "Habla con tu lavador durante el servicio."
+      },
+      "liveTracking": {
+        "title": "Seguimiento en vivo",
+        "desc": "Ve cuando empieza y termina."
+      },
+      "qualityRated": {
+        "title": "Calidad medida",
+        "desc": "Cada lavador tiene calificacion."
+      },
+      "flexPayments": {
+        "title": "Pagos flexibles",
+        "desc": "Tarjeta, OXXO, SPEI o efectivo."
+      }
+    },
+    "pricing": {
+      "badge": "Planes desde",
+      "price": "$299",
+      "period": "/mes",
+      "desc": "Un lavado semanal. Sin compromisos. Cancela cuando quieras.",
+      "cta": "Empezar ahora"
+    },
+    "footer": {
+      "rights": "Todos los derechos reservados."
+    }
+  },
+
+  "auth": {
+    "login": {
+      "title": "Iniciar sesion",
+      "email": "Correo electronico",
+      "emailPlaceholder": "tu@correo.com",
+      "password": "Contrasena",
+      "passwordPlaceholder": "••••••••",
+      "forgotPassword": "Olvidaste tu contrasena?",
+      "submit": "Entrar",
+      "noAccount": "No tienes cuenta?",
+      "register": "Registrate"
+    },
+    "register": {
+      "title": "Crear tu cuenta",
+      "fullName": "Nombre completo",
+      "fullNamePlaceholder": "Juan Perez",
+      "email": "Correo electronico",
+      "emailPlaceholder": "tu@correo.com",
+      "phone": "Telefono",
+      "phonePlaceholder": "+52 55 1234 5678",
+      "password": "Contrasena",
+      "passwordPlaceholder": "Minimo 6 caracteres",
+      "submit": "Crear cuenta",
+      "hasAccount": "Ya tienes cuenta?",
+      "login": "Inicia sesion"
+    },
+    "forgotPassword": {
+      "title": "Recuperar contrasena",
+      "description": "Ingresa tu correo y te enviaremos un enlace para restablecer tu contrasena.",
+      "email": "Correo electronico",
+      "emailPlaceholder": "tu@correo.com",
+      "submit": "Enviar enlace",
+      "backToLogin": "Volver a iniciar sesion",
+      "sent": "Revisa tu correo. Te enviamos un enlace para restablecer tu contrasena."
+    }
+  },
+
+  "dashboard": {
+    "welcome": "Hola!",
+    "welcomeMessage": "Bienvenido a myWash. Aqui puedes ver el estado de tus lavados.",
+    "quickActions": {
+      "addCar": "Agregar auto",
+      "viewPlans": "Ver planes",
+      "singleWash": "Lavado unico",
+      "emergency": "Emergencia"
+    },
+    "nextWash": {
+      "title": "Proximo lavado",
+      "noScheduled": "Sin programar",
+      "viewDetail": "Ver detalle",
+      "carsRegistered": "{count, plural, =0 {Sin autos registrados} one {# auto registrado} other {# autos registrados}}",
+      "registerFirstCar": "Registra tu primer auto"
+    },
+    "recentActivity": {
+      "title": "Actividad reciente",
+      "empty": "Aun no tienes lavados.",
+      "emptySub": "Suscribete a un plan para empezar."
+    },
+    "plan": {
+      "title": "Mi plan",
+      "noSubscription": "Sin suscripcion activa",
+      "viewPlans": "Ver planes"
+    }
+  },
+
+  "cars": {
+    "title": "Mis autos",
+    "addCar": "Agregar auto",
+    "editCar": "Editar auto",
+    "noCars": "No tienes autos registrados.",
+    "noCarsDesc": "Agrega tu primer auto para empezar a usar myWash.",
+    "plateNumber": "Placa",
+    "platePlaceholder": "ABC-123",
+    "make": "Marca",
+    "makePlaceholder": "Toyota",
+    "model": "Modelo",
+    "modelPlaceholder": "Corolla",
+    "year": "Ano",
+    "yearPlaceholder": "2024",
+    "color": "Color",
+    "colorPlaceholder": "Blanco",
+    "photo": "Foto del auto",
+    "uploadPhoto": "Subir foto",
+    "changePhoto": "Cambiar foto",
+    "notes": "Notas",
+    "notesPlaceholder": "Instrucciones especiales, danos existentes, etc.",
+    "deleteCar": "Eliminar auto",
+    "deleteConfirm": "Estas seguro de que quieres eliminar este auto?",
+    "deleteWarning": "Se cancelaran las reservas activas de este auto.",
+    "saved": "Auto guardado correctamente",
+    "deleted": "Auto eliminado"
+  },
+
+  "packages": {
+    "title": "Planes disponibles",
+    "browse": "Explorar planes",
+    "popular": "Mas popular",
+    "subscribe": "Suscribirse",
+    "subscribed": "Suscrito",
+    "monthly": "mensual",
+    "perMonth": "/mes",
+    "perWash": "/lavado",
+    "includes": "Incluye",
+    "frequency": {
+      "weekly": "Semanal",
+      "biweekly": "Quincenal",
+      "monthly": "Mensual",
+      "single": "Unico"
+    },
+    "washType": {
+      "basic": "Lavado basico",
+      "premium": "Lavado premium",
+      "detail": "Detallado completo"
+    },
+    "features": {
+      "exteriorWash": "Lavado exterior",
+      "interiorClean": "Limpieza interior",
+      "waxing": "Encerado",
+      "tireShine": "Brillo de llantas",
+      "airFreshener": "Aromatizante",
+      "engineClean": "Limpieza de motor",
+      "photoEvidence": "Evidencia fotografica"
+    },
+    "detail": {
+      "title": "Detalle del plan",
+      "price": "Precio",
+      "washesIncluded": "Lavados incluidos",
+      "duration": "Duracion",
+      "selectCar": "Selecciona tu auto",
+      "selectLocation": "Selecciona tu ubicacion",
+      "confirmSubscription": "Confirmar suscripcion",
+      "termsNote": "Al suscribirte aceptas los terminos y condiciones."
+    }
+  },
+
+  "bookings": {
+    "title": "Mis lavados",
+    "noBookings": "No tienes lavados programados.",
+    "noBookingsDesc": "Reserva un lavado o suscribete a un plan.",
+    "upcoming": "Proximos",
+    "past": "Anteriores",
+    "detail": {
+      "title": "Detalle del lavado",
+      "date": "Fecha",
+      "time": "Hora",
+      "car": "Auto",
+      "location": "Ubicacion",
+      "washer": "Lavador",
+      "status": "Estado",
+      "type": "Tipo",
+      "price": "Precio",
+      "notes": "Notas",
+      "photos": "Fotos",
+      "beforePhotos": "Fotos antes",
+      "afterPhotos": "Fotos despues",
+      "rate": "Calificar lavado",
+      "cancel": "Cancelar lavado",
+      "cancelConfirm": "Estas seguro de que quieres cancelar este lavado?",
+      "reschedule": "Reprogramar"
+    },
+    "status": {
+      "pending": "Pendiente",
+      "confirmed": "Confirmado",
+      "washerAssigned": "Lavador asignado",
+      "washerOnWay": "Lavador en camino",
+      "inProgress": "En progreso",
+      "completed": "Completado",
+      "cancelled": "Cancelado",
+      "noShow": "No asistio"
+    }
+  },
+
+  "profile": {
+    "title": "Mi perfil",
+    "personalInfo": "Informacion personal",
+    "fullName": "Nombre completo",
+    "email": "Correo electronico",
+    "emailReadonly": "El correo no se puede cambiar.",
+    "phone": "Telefono",
+    "phonePlaceholder": "+52 55 1234 5678",
+    "language": "Idioma",
+    "languageEs": "Espanol",
+    "languageEn": "English",
+    "save": "Guardar cambios",
+    "saved": "Guardado",
+    "referral": {
+      "title": "Codigo de referido",
+      "description": "Comparte este codigo con tus amigos para ganar recompensas.",
+      "copy": "Copiar"
+    },
+    "roles": {
+      "admin": "Administrador",
+      "location_manager": "Manager",
+      "car_washer": "Lavador",
+      "customer": "Cliente"
+    }
+  },
+
+  "notifications": {
+    "title": "Notificaciones",
+    "empty": "No tienes notificaciones.",
+    "emptyDesc": "Cuando tengas actualizaciones sobre tus lavados, apareceran aqui.",
+    "markAllRead": "Marcar todas como leidas",
+    "markRead": "Marcar como leida",
+    "time": {
+      "justNow": "Ahora",
+      "minutesAgo": "Hace {count} min",
+      "hoursAgo": "Hace {count} h",
+      "daysAgo": "Hace {count} d",
+      "yesterday": "Ayer",
+      "today": "Hoy"
+    },
+    "types": {
+      "bookingConfirmed": "Lavado confirmado",
+      "bookingCompleted": "Lavado completado",
+      "bookingCancelled": "Lavado cancelado",
+      "washerAssigned": "Lavador asignado",
+      "washerOnWay": "Tu lavador va en camino",
+      "paymentReceived": "Pago recibido",
+      "subscriptionRenewed": "Suscripcion renovada",
+      "newPromotion": "Nueva promocion"
+    }
+  }
+}
