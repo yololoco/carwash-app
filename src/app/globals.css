@@ -57,25 +57,25 @@
 }
 
 :root {
-  /* myWash Light Theme — Deep Blue primary */
-  --background: oklch(0.985 0 0);
-  --foreground: oklch(0.145 0.02 250);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0.02 250);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0.02 250);
-  --primary: oklch(0.32 0.08 250);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.95 0.01 250);
-  --secondary-foreground: oklch(0.32 0.08 250);
-  --muted: oklch(0.96 0.005 250);
+  /* myWash Light Theme — Crystal Water */
+  --background: oklch(0.98 0.005 220);
+  --foreground: oklch(0.18 0.03 240);
+  --card: oklch(0.995 0.002 220);
+  --card-foreground: oklch(0.18 0.03 240);
+  --popover: oklch(0.995 0.002 220);
+  --popover-foreground: oklch(0.18 0.03 240);
+  --primary: oklch(0.55 0.15 220);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.94 0.015 220);
+  --secondary-foreground: oklch(0.3 0.06 240);
+  --muted: oklch(0.95 0.01 220);
   --muted-foreground: oklch(0.55 0.02 250);
-  --accent: oklch(0.82 0.15 200);
-  --accent-foreground: oklch(0.15 0.05 250);
+  --accent: oklch(0.88 0.08 200);
+  --accent-foreground: oklch(0.18 0.05 240);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.91 0.01 250);
-  --input: oklch(0.91 0.01 250);
-  --ring: oklch(0.55 0.12 200);
+  --border: oklch(0.92 0.012 220);
+  --input: oklch(0.92 0.012 220);
+  --ring: oklch(0.55 0.12 210);
   --chart-1: oklch(0.82 0.15 200);
   --chart-2: oklch(0.32 0.08 250);
   --chart-3: oklch(0.7 0.12 85);
@@ -204,8 +204,84 @@
   }
   body {
     @apply bg-background text-foreground;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 191, 255, 0.04) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 100% 100%, rgba(0, 153, 204, 0.03) 0%, transparent 60%);
+    background-attachment: fixed;
   }
   html {
     @apply font-sans;
   }
+
+  /* All cards get a subtle blue-tinted border */
+  [data-slot="card"] {
+    border-color: rgba(0, 153, 204, 0.08);
+    background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(240,250,255,0.5) 100%);
+  }
+
+  /* Inputs get water-tinted focus */
+  input:focus, textarea:focus, [data-slot="select-trigger"]:focus {
+    border-color: rgba(0, 153, 204, 0.25) !important;
+    box-shadow: 0 0 0 3px rgba(0, 191, 255, 0.08) !important;
+  }
+
+  /* Badge styling enhancement */
+  [data-slot="badge"] {
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  /* Links get water color */
+  a:not([class]) {
+    color: #0099CC;
+  }
+}
+
+/* App page header sections */
+.page-header {
+  background: linear-gradient(135deg, #F0FAFF 0%, #E8F7FF 50%, #F5FBFF 100%);
+  border-bottom: 1px solid rgba(0, 153, 204, 0.06);
+  padding: 1.5rem 0;
+  margin: -1.5rem -1rem 1.5rem -1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Stat/KPI cards */
+.stat-card {
+  background: linear-gradient(135deg, white 0%, #F8FDFF 100%);
+  border-color: rgba(0, 153, 204, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #00BFFF, #0099CC);
+  opacity: 0.4;
+}
+
+/* Section dividers */
+.water-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 191, 255, 0.15), transparent);
+  border: none;
+  margin: 2rem 0;
+}
+
+/* Empty state backgrounds */
+.empty-state {
+  background: linear-gradient(180deg, #F8FDFF 0%, #F0FAFF 100%);
+  border: 1px dashed rgba(0, 153, 204, 0.15);
+  border-radius: 1rem;
+}
+
+/* Bottom nav enhancement */
+nav[class*="fixed bottom"] {
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(240,250,255,0.98)) !important;
+  border-top-color: rgba(0, 153, 204, 0.08) !important;
 }
