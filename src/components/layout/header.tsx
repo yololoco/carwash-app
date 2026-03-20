@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useAuth } from "@/hooks/use-auth";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -13,9 +14,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { NotificationBell } from "@/components/shared/notification-bell";
+import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { Droplets, LogOut, User, Settings } from "lucide-react";
 
 export function Header() {
+  const t = useTranslations("common");
   const { profile, signOut } = useAuth();
 
   const initials = profile?.full_name
@@ -36,6 +39,7 @@ export function Header() {
         </Link>
 
         <div className="flex items-center gap-2">
+          <LanguageSwitcher />
           <NotificationBell />
 
           <DropdownMenu>
@@ -59,16 +63,16 @@ export function Header() {
               <DropdownMenuSeparator />
               <DropdownMenuItem render={<Link href="/profile" />}>
                 <User className="mr-2 h-4 w-4" />
-                Mi perfil
+                {t("myProfile")}
               </DropdownMenuItem>
               <DropdownMenuItem render={<Link href="/settings" />}>
                 <Settings className="mr-2 h-4 w-4" />
-                Configuracion
+                {t("settings")}
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={signOut}>
                 <LogOut className="mr-2 h-4 w-4" />
-                Cerrar sesion
+                {t("signOut")}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
