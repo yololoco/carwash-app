@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getLocale } from "next-intl/server";
 import { ErrorBoundary } from "@/components/shared/error-boundary";
@@ -57,13 +58,15 @@ export default async function RootLayout({
       className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-[family-name:var(--font-sans)]">
-        <NextIntlClientProvider messages={messages}>
-          <ErrorBoundary>
-            {children}
-            <OfflineIndicator />
-            <Toaster position="top-center" />
-          </ErrorBoundary>
-        </NextIntlClientProvider>
+        <ClerkProvider>
+          <NextIntlClientProvider messages={messages}>
+            <ErrorBoundary>
+              {children}
+              <OfflineIndicator />
+              <Toaster position="top-center" />
+            </ErrorBoundary>
+          </NextIntlClientProvider>
+        </ClerkProvider>
       </body>
     </html>
   );

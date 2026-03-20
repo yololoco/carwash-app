@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { Show, UserButton, SignInButton, SignUpButton } from "@clerk/nextjs";
 import { useTranslations } from "next-intl";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
 
@@ -230,13 +231,24 @@ export default function LandingPage() {
           </Link>
           <div className="flex items-center gap-3">
             <LanguageSwitcher />
-            <Link href="/login" className="rounded-full px-5 py-2 text-sm font-medium text-[#1A2B3C]/55 transition-colors hover:text-[#1A2B3C]">
-              {t("nav.login")}
-            </Link>
-            <Link href="/register" className="group relative overflow-hidden rounded-full bg-gradient-to-br from-[#00CFFF] via-[#00A3CC] to-[#007A99] px-6 py-2.5 text-sm font-semibold text-white shadow-[0_4px_20px_rgba(0,191,255,0.25)] transition-all hover:shadow-[0_6px_30px_rgba(0,191,255,0.35)] active:scale-[0.97]">
-              <span className="relative z-10">{t("nav.register")}</span>
-              <div className="absolute inset-0 bg-white opacity-0 transition-opacity group-hover:opacity-15" />
-            </Link>
+            <Show when="signed-out">
+              <SignInButton mode="redirect">
+                <button className="rounded-full px-5 py-2 text-sm font-medium text-[#1A2B3C]/55 transition-colors hover:text-[#1A2B3C]">
+                  {t("nav.login")}
+                </button>
+              </SignInButton>
+              <SignUpButton mode="redirect">
+                <button className="group relative overflow-hidden rounded-full bg-gradient-to-br from-[#00CFFF] via-[#00A3CC] to-[#007A99] px-6 py-2.5 text-sm font-semibold text-white shadow-[0_4px_20px_rgba(0,191,255,0.25)] transition-all hover:shadow-[0_6px_30px_rgba(0,191,255,0.35)] active:scale-[0.97]">
+                  <span className="relative z-10">{t("nav.register")}</span>
+                </button>
+              </SignUpButton>
+            </Show>
+            <Show when="signed-in">
+              <Link href="/dashboard" className="rounded-full px-5 py-2 text-sm font-medium text-[#0099CC] transition-colors hover:text-[#007A99]">
+                Mi cuenta
+              </Link>
+              <UserButton signInUrl="/login" />
+            </Show>
           </div>
         </div>
       </header>

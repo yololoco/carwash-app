@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useUser, useAuth as useClerkAuth } from "@clerk/nextjs";
 import { createClient } from "@/lib/supabase/client";
-import type { User } from "@supabase/supabase-js";
 import type { UserRole } from "@/types/database";
 
 interface Profile {
@@ -17,54 +17,64 @@ interface Profile {
 }
 
 export function useAuth() {
-  const [user, setUser] = useState<User | null>(null);
+  const { user: clerkUser, isLoaded } = useUser();
+  const { signOut: clerkSignOut } = useClerkAuth();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
-  const supabase = createClient();
 
   useEffect(() => {
-    const getUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      setUser(user);
+    if (!isLoaded) return;
 
-      if (user) {
-        const { data } = await supabase
-          .from("profiles")
-          .select("id, email, full_name, phone, avatar_url, role, preferred_language, referral_code")
-          .eq("id", user.id)
-          .single();
-        setProfile(data);
+    if (!clerkUser) {
+      setProfile(null);
+      setLoading(false);
+      return;
+    }
+
+    async function fetchProfile() {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const db = createClient() as any;
+
+      // Try to find existing profile by Clerk user ID or email
+      const email = clerkUser!.primaryEmailAddress?.emailAddress;
+      const { data } = await db
+        .from("profiles")
+        .select("id, email, full_name, phone, avatar_url, role, preferred_language, referral_code")
+        .eq("email", email)
+        .single();
+
+      if (data) {
+        setProfile(data as Profile);
+      } else {
+        // Profile doesn't exist yet — create one
+        // This handles the case where Clerk user signed up but no Supabase profile exists
+        const newProfile = {
+          id: clerkUser!.id,
+          email: email || "",
+          full_name: clerkUser!.fullName || clerkUser!.firstName || email || "",
+          phone: clerkUser!.primaryPhoneNumber?.phoneNumber || null,
+          avatar_url: clerkUser!.imageUrl || null,
+          role: "customer" as UserRole,
+          preferred_language: "es",
+          referral_code: clerkUser!.id.slice(0, 8).toUpperCase(),
+        };
+
+        await db.from("profiles").upsert(newProfile, { onConflict: "email" });
+        setProfile(newProfile);
       }
 
       setLoading(false);
-    };
+    }
 
-    getUser();
+    fetchProfile();
+  }, [clerkUser, isLoaded]);
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (_event, session) => {
-      setUser(session?.user ?? null);
-      if (session?.user) {
-        const { data } = await supabase
-          .from("profiles")
-          .select("id, email, full_name, phone, avatar_url, role, preferred_language, referral_code")
-          .eq("id", session.user.id)
-          .single();
-        setProfile(data);
-      } else {
-        setProfile(null);
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
+  const user = clerkUser
+    ? { id: profile?.id || clerkUser.id, email: clerkUser.primaryEmailAddress?.emailAddress }
+    : null;
 
   const signOut = async () => {
-    await supabase.auth.signOut();
-    setUser(null);
+    await clerkSignOut();
     setProfile(null);
   };
 
