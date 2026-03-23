@@ -2,12 +2,12 @@
 
 import { Header } from "@/components/layout/header";
 import { MobileNav } from "@/components/layout/mobile-nav";
-import { ClipboardList, BarChart3, Calendar, User } from "lucide-react";
+import { Bell, CalendarCheck, DollarSign, User } from "lucide-react";
 
 const washerNav = [
-  { href: "/washer/queue", label: "Cola", icon: ClipboardList },
-  { href: "/washer/schedule", label: "Agenda", icon: Calendar },
-  { href: "/washer/performance", label: "Mi rendimiento", icon: BarChart3 },
+  { href: "/washer/requests", label: "Solicitudes", icon: Bell },
+  { href: "/washer/today", label: "Mi dia", icon: CalendarCheck },
+  { href: "/washer/earnings", label: "Ganancias", icon: DollarSign },
   { href: "/washer/profile", label: "Perfil", icon: User },
 ];
 

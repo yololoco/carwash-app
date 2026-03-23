@@ -38,6 +38,26 @@ const STATUS_CONFIG: Record<string, { label: string; className: string }> = {
     label: "Reprogramado",
     className: "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400",
   },
+  broadcast: {
+    label: "Buscando lavador",
+    className: "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400",
+  },
+  accepted: {
+    label: "Aceptado",
+    className: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400",
+  },
+  rejected: {
+    label: "Rechazado",
+    className: "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400",
+  },
+  expired: {
+    label: "Expirado",
+    className: "bg-gray-100 text-gray-500 dark:bg-gray-900/30 dark:text-gray-500",
+  },
+  requested: {
+    label: "Solicitado",
+    className: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400",
+  },
 };
 
 interface BookingStatusProps {
@@ -50,7 +70,7 @@ export function BookingStatus({ status }: BookingStatusProps) {
     className: "bg-gray-100 text-gray-800",
   };
 
-  const isLive = ["in_progress", "washer_en_route"].includes(status);
+  const isLive = ["in_progress", "washer_en_route", "broadcast", "requested"].includes(status);
 
   return (
     <Badge

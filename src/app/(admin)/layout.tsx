@@ -20,6 +20,7 @@ import {
   AlertTriangle,
   Download,
   ScrollText,
+  Banknote,
 } from "lucide-react";
 
 const adminLinks = [
@@ -33,6 +34,7 @@ const adminLinks = [
   { href: "/admin/analytics", label: "Analiticas", icon: BarChart3 },
   { href: "/admin/inventory", label: "Inventario", icon: Boxes },
   { href: "/admin/subscriptions", label: "Suscripciones", icon: ClipboardList },
+  { href: "/admin/cuotas", label: "Cuotas", icon: Banknote },
   { href: "/admin/disputes", label: "Disputas", icon: AlertTriangle },
   { href: "/admin/corporate", label: "Corporativo", icon: Building2 },
   { href: "/admin/settings", label: "Configuracion", icon: Settings },

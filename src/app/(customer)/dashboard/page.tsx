@@ -1,47 +1,47 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useTranslations, useLocale } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { BookingStatus } from "@/components/booking/booking-status";
 import Link from "next/link";
 import {
   Car,
-  Calendar,
-  Clock,
   ArrowRight,
   Plus,
   Droplets,
-  MapPin,
-  Sparkles,
-  Zap,
+  Clock,
+  CheckCircle2,
 } from "lucide-react";
 
-interface NextBooking {
+interface ActiveBooking {
   id: string;
-  scheduled_date: string;
-  scheduled_time_start: string;
   status: string;
-  car: { plate_number: string };
-  location: { name: string };
+  created_at: string;
+  car: { plate_number: string; make: string; model: string };
+}
+
+interface RecentWash {
+  id: string;
+  status: string;
+  completed_at: string | null;
+  created_at: string;
+  car: { plate_number: string; make: string; model: string };
+  total_price: number | null;
 }
 
 export default function CustomerDashboard() {
-  const t = useTranslations("dashboard");
-  const locale = useLocale();
   const { user } = useAuth();
   const [carCount, setCarCount] = useState(0);
-  const [nextBooking, setNextBooking] = useState<NextBooking | null>(null);
-  const [bookingLoaded, setBookingLoaded] = useState(false);
+  const [activeBooking, setActiveBooking] = useState<ActiveBooking | null>(null);
+  const [recentWashes, setRecentWashes] = useState<RecentWash[]>([]);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     if (!user) return;
     async function fetchData() {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const db = createClient() as any;
 
       const { count } = await db
@@ -51,154 +51,192 @@ export default function CustomerDashboard() {
         .eq("is_active", true);
       setCarCount(count ?? 0);
 
-      const { data: bookingData } = await db
+      // Active on-demand booking
+      const { data: activeData } = await db
         .from("bookings")
         .select(
-          "id, scheduled_date, scheduled_time_start, status, cars(plate_number), locations(name)"
+          "id, status, created_at, cars(plate_number, make, model)"
         )
         .eq("customer_id", user!.id)
-        .in("status", ["pending", "confirmed"])
-        .order("scheduled_date", { ascending: true })
+        .in("status", ["pending", "confirmed", "in_progress", "requested", "broadcast", "accepted"])
+        .order("created_at", { ascending: false })
         .limit(1);
 
-      if (bookingData && bookingData.length > 0) {
-        const b = bookingData[0];
-        setNextBooking({
+      if (activeData && activeData.length > 0) {
+        const b = activeData[0];
+        setActiveBooking({
           ...b,
-          car: b.cars ?? { plate_number: "" },
-          location: b.locations ?? { name: "" },
+          car: b.cars ?? { plate_number: "", make: "", model: "" },
         });
       }
-      setBookingLoaded(true);
+
+      // Recent completed washes
+      const { data: recentData } = await db
+        .from("bookings")
+        .select(
+          "id, status, completed_at, created_at, total_price, cars(plate_number, make, model)"
+        )
+        .eq("customer_id", user!.id)
+        .eq("status", "completed")
+        .order("completed_at", { ascending: false })
+        .limit(3);
+
+      if (recentData) {
+        setRecentWashes(
+          recentData.map((b: any) => ({
+            ...b,
+            car: b.cars ?? { plate_number: "", make: "", model: "" },
+          }))
+        );
+      }
+
+      setLoaded(true);
     }
     fetchData();
   }, [user]);
-
-  const dateLocale = locale === "en" ? "en-US" : "es-MX";
-  const formattedDate = nextBooking
-    ? new Date(nextBooking.scheduled_date + "T00:00:00").toLocaleDateString(
-        dateLocale,
-        { weekday: "short", day: "numeric", month: "short" }
-      )
-    : "";
-  const formattedTime = nextBooking?.scheduled_time_start?.slice(0, 5) ?? "";
 
   return (
     <div className="space-y-4 sm:space-y-6">
       {/* Welcome */}
       <div>
-        <h1 className="text-xl font-bold sm:text-2xl">{t("welcome")}</h1>
+        <h1 className="text-xl font-bold sm:text-2xl">Bienvenido</h1>
         <p className="text-muted-foreground">
-          {t("welcomeMessage")}
+          Solicita un lavado a domicilio en minutos.
         </p>
       </div>
 
-      {/* Quick Actions */}
-      <div className="grid grid-cols-2 gap-2 sm:gap-3">
-        <Link href="/cars/new" className={buttonVariants({ variant: "outline", className: "h-auto min-h-[44px] flex-col gap-1.5 py-3 sm:gap-2 sm:py-4" })}>
-            <Plus className="h-5 w-5" />
-            <span className="text-[11px] sm:text-xs">{t("quickActions.addCar")}</span>
-        </Link>
-        <Link href="/packages" className={buttonVariants({ variant: "outline", className: "h-auto min-h-[44px] flex-col gap-1.5 py-3 sm:gap-2 sm:py-4" })}>
-            <Droplets className="h-5 w-5" />
-            <span className="text-[11px] sm:text-xs">{t("quickActions.viewPlans")}</span>
-        </Link>
-        <Link href="/book" className={buttonVariants({ variant: "outline", className: "h-auto min-h-[44px] flex-col gap-1.5 py-3 sm:gap-2 sm:py-4" })}>
-            <Sparkles className="h-5 w-5" />
-            <span className="text-[11px] sm:text-xs">{t("quickActions.singleWash")}</span>
-        </Link>
-        <Link href="/book/emergency" className={buttonVariants({ variant: "outline", className: "h-auto min-h-[44px] flex-col gap-1.5 py-3 sm:gap-2 sm:py-4" })}>
-            <Zap className="h-5 w-5" />
-            <span className="text-[11px] sm:text-xs">{t("quickActions.emergency")}</span>
-        </Link>
-      </div>
+      {/* Request Wash CTA */}
+      <Link
+        href="/request"
+        className={buttonVariants({
+          size: "lg",
+          className:
+            "w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white hover:from-blue-700 hover:to-blue-600 h-14 text-base font-semibold gap-2 shadow-lg",
+        })}
+      >
+        <Droplets className="h-5 w-5" />
+        Solicitar lavado
+      </Link>
 
-      {/* Next Wash */}
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between pb-2">
-          <CardTitle className="text-base font-medium">
-            {t("nextWash.title")}
-          </CardTitle>
-          {nextBooking ? (
-            <BookingStatus status={nextBooking.status} />
-          ) : (
-            <Badge variant="secondary">{t("nextWash.noScheduled")}</Badge>
-          )}
-        </CardHeader>
-        <CardContent>
-          {nextBooking ? (
-            <Link href={`/bookings/${nextBooking.id}`} className="block space-y-2">
-              <div className="flex items-center gap-4 text-sm">
-                <div className="flex items-center gap-1 text-muted-foreground">
-                  <Calendar className="h-4 w-4" />
-                  <span>{formattedDate}</span>
-                </div>
-                <div className="flex items-center gap-1 text-muted-foreground">
-                  <Clock className="h-4 w-4" />
-                  <span>{formattedTime}</span>
-                </div>
+      {/* Active Booking Tracking Card */}
+      {activeBooking && (
+        <Card className="border-blue-200 bg-blue-50/50 dark:border-blue-900 dark:bg-blue-950/20">
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-base font-medium">
+              Lavado en curso
+            </CardTitle>
+            <BookingStatus status={activeBooking.status} />
+          </CardHeader>
+          <CardContent>
+            <Link
+              href={`/bookings/${activeBooking.id}/track`}
+              className="block space-y-2"
+            >
+              <div className="flex items-center gap-2 text-sm">
+                <Car className="h-4 w-4 text-muted-foreground" />
+                <span className="font-semibold">
+                  {activeBooking.car.plate_number}
+                </span>
+                <span className="text-muted-foreground">
+                  {activeBooking.car.make} {activeBooking.car.model}
+                </span>
               </div>
-              <div className="flex items-center gap-4 text-sm">
-                <div className="flex items-center gap-1 text-muted-foreground">
-                  <Car className="h-4 w-4" />
-                  <span className="font-medium">{nextBooking.car.plate_number}</span>
-                </div>
-                <div className="flex items-center gap-1 text-muted-foreground">
-                  <MapPin className="h-4 w-4" />
-                  <span>{nextBooking.location.name}</span>
-                </div>
-              </div>
-              <div className="flex items-center text-sm text-primary">
-                {t("nextWash.viewDetail")}
+              <div className="flex items-center gap-1 text-sm text-blue-600 dark:text-blue-400">
+                <Clock className="h-3.5 w-3.5" />
+                Seguir en tiempo real
                 <ArrowRight className="ml-1 h-3 w-3" />
               </div>
             </Link>
-          ) : bookingLoaded ? (
-            <div>
-              <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                <div className="flex items-center gap-1">
-                  <Car className="h-4 w-4" />
-                  <span>{t("nextWash.carsRegistered", { count: carCount })}</span>
-                </div>
-              </div>
-              <Link href="/cars/new" className={buttonVariants({ variant: "link", className: "mt-2 h-auto p-0 text-sm" })}>
-                  {t("nextWash.registerFirstCar")}
-                  <ArrowRight className="ml-1 h-3 w-3" />
-              </Link>
-            </div>
-          ) : null}
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      )}
 
-      {/* Recent Activity */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base font-medium">
-            {t("recentActivity.title")}
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex flex-col items-center gap-2 py-6 text-center text-sm text-muted-foreground">
-            <Calendar className="h-8 w-8" />
-            <p>{t("recentActivity.empty")}</p>
-            <p>{t("recentActivity.emptySub")}</p>
-          </div>
-        </CardContent>
-      </Card>
+      {/* Quick Actions */}
+      <div className="grid grid-cols-2 gap-2 sm:gap-3">
+        <Link
+          href="/cars/new"
+          className={buttonVariants({
+            variant: "outline",
+            className:
+              "h-auto min-h-[44px] flex-col gap-1.5 py-3 sm:gap-2 sm:py-4",
+          })}
+        >
+          <Plus className="h-5 w-5" />
+          <span className="text-[11px] sm:text-xs">Agregar auto</span>
+        </Link>
+        <Link
+          href="/cars"
+          className={buttonVariants({
+            variant: "outline",
+            className:
+              "h-auto min-h-[44px] flex-col gap-1.5 py-3 sm:gap-2 sm:py-4",
+          })}
+        >
+          <Car className="h-5 w-5" />
+          <span className="text-[11px] sm:text-xs">
+            {carCount} {carCount === 1 ? "auto" : "autos"}
+          </span>
+        </Link>
+      </div>
 
-      {/* Subscription Status */}
+      {/* Recent Completed Washes */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between pb-2">
-          <CardTitle className="text-base font-medium">{t("plan.title")}</CardTitle>
+          <CardTitle className="text-base font-medium">
+            Lavados recientes
+          </CardTitle>
+          <Link
+            href="/bookings"
+            className={buttonVariants({
+              variant: "ghost",
+              size: "sm",
+              className: "text-xs",
+            })}
+          >
+            Ver todos
+            <ArrowRight className="ml-1 h-3 w-3" />
+          </Link>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Clock className="h-4 w-4" />
-              <span>{t("plan.noSubscription")}</span>
+          {loaded && recentWashes.length === 0 ? (
+            <div className="flex flex-col items-center gap-2 py-6 text-center text-sm text-muted-foreground">
+              <Droplets className="h-8 w-8" />
+              <p>Aun no tienes lavados completados.</p>
+              <p>Solicita tu primer lavado ahora.</p>
             </div>
-            <Link href="/packages" className={buttonVariants({ size: "sm" })}>{t("plan.viewPlans")}</Link>
-          </div>
+          ) : (
+            <div className="space-y-3">
+              {recentWashes.map((wash) => (
+                <Link
+                  key={wash.id}
+                  href={`/bookings/${wash.id}`}
+                  className="flex items-center justify-between rounded-lg border p-3 transition-colors hover:bg-muted/50"
+                >
+                  <div className="flex items-center gap-3">
+                    <CheckCircle2 className="h-4 w-4 text-green-600" />
+                    <div>
+                      <p className="text-sm font-medium">
+                        {wash.car.plate_number}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {wash.car.make} {wash.car.model}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-xs text-muted-foreground">
+                      {new Date(
+                        wash.completed_at || wash.created_at
+                      ).toLocaleDateString("es-MX", {
+                        day: "numeric",
+                        month: "short",
+                      })}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>
