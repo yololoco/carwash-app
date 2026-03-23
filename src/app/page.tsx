@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Show, UserButton, SignInButton, SignUpButton } from "@clerk/nextjs";
+import { Droplets } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
 
@@ -32,7 +33,7 @@ function DropLogo({ size = 28 }: { size?: number }) {
 /* ─── Floating Sparkles ─── */
 function Sparkles() {
   const [dots] = useState(() =>
-    Array.from({ length: 35 }, (_, i) => ({
+    Array.from({ length: 12 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
@@ -63,7 +64,7 @@ function Sparkles() {
 /* ─── Rising Bubbles ─── */
 function Bubbles() {
   const [bubbles] = useState(() =>
-    Array.from({ length: 14 }, (_, i) => ({
+    Array.from({ length: 6 }, (_, i) => ({
       id: i,
       left: 5 + Math.random() * 90,
       size: 8 + Math.random() * 40,
@@ -224,7 +225,7 @@ export default function LandingPage() {
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:h-20 sm:px-6">
           <Link href="/" className="group flex items-center gap-2">
-            <DropLogo />
+            <Droplets className="h-6 w-6 text-[#0099CC]" />
             <span className="text-lg font-bold tracking-tight sm:text-xl">
               my<span className="text-[#0099CC]">Wash</span>
             </span>
@@ -274,13 +275,7 @@ export default function LandingPage() {
               {t("hero.title2")}{" "}
               <span className="relative">
                 <span className="text-[#0099CC]">{t("hero.titleHighlight")}</span>
-                {/* Water drop accents */}
-                <svg className="absolute -right-5 -top-3 h-4 w-4 animate-[dropFloat_3s_ease-in-out_infinite]" viewBox="0 0 32 32" fill="none">
-                  <path d="M16 3l8.49 8.49a12 12 0 11-16.97 0L16 3z" fill="#00BFFF" opacity="0.25" />
-                </svg>
-                <svg className="absolute -right-9 top-1 h-2.5 w-2.5 animate-[dropFloat_3s_ease-in-out_0.8s_infinite]" viewBox="0 0 32 32" fill="none">
-                  <path d="M16 3l8.49 8.49a12 12 0 11-16.97 0L16 3z" fill="#00BFFF" opacity="0.15" />
-                </svg>
+                {/* Subtle accent */}
               </span>
             </h1>
 
@@ -425,7 +420,7 @@ export default function LandingPage() {
       <footer className="relative z-10 border-t border-[#E0F0FA] px-4 py-8 sm:px-6 sm:py-10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 sm:flex-row">
           <div className="flex items-center gap-2">
-            <DropLogo size={20} />
+            <Droplets className="h-5 w-5 text-[#0099CC]" />
             <span className="text-sm font-bold tracking-tight">my<span className="text-[#0099CC]">Wash</span></span>
           </div>
           <p className="text-xs text-[#1A2B3C]/20">&copy; {new Date().getFullYear()} myWash. {t("footer.rights")}</p>

@@ -54,35 +54,35 @@
       "register": "Sign up"
     },
     "hero": {
-      "eyebrow": "Professional car wash at your building",
-      "title1": "Your car,",
-      "title2": "always",
-      "titleHighlight": "spotless",
-      "subtitle": "We wash your car while you work or rest. No appointments, no lines.",
-      "subtitleBold": "Just spotless results.",
-      "ctaPrimary": "Start for free",
+      "eyebrow": "On-demand car wash in minutes",
+      "title1": "Request a wash,",
+      "title2": "a pro",
+      "titleHighlight": "arrives",
+      "subtitle": "Request a wash from the app and a professional washer comes straight to your parking spot.",
+      "subtitleBold": "That easy.",
+      "ctaPrimary": "Request a wash",
       "ctaSecondary": "How it works",
-      "socialProof": "cars washed this month"
+      "socialProof": "washes completed"
     },
     "howItWorks": {
       "title": "It's that",
-      "titleHighlight": "simple",
-      "subtitle": "4 steps. 2 minutes. Spotless car.",
+      "titleHighlight": "fast",
+      "subtitle": "3 steps. 2 minutes. Spotless car.",
       "step01": {
         "title": "Register your car",
         "desc": "Plate and photo. 30 seconds."
       },
       "step02": {
-        "title": "Choose your plan",
-        "desc": "Weekly, biweekly, or one-time."
+        "title": "Request a wash",
+        "desc": "Pick the services you want."
       },
       "step03": {
-        "title": "We come to you",
-        "desc": "We wash in your parking spot."
+        "title": "A washer accepts",
+        "desc": "Comes straight to your parking spot."
       },
       "step04": {
         "title": "Result photos",
-        "desc": "Before and after evidence."
+        "desc": "Before & after evidence. Rate it."
       }
     },
     "features": {
@@ -91,35 +91,35 @@
       "subtitle": "Technology that protects your car and gives you total peace of mind.",
       "photoEvidence": {
         "title": "Before & after photos",
-        "desc": "Photographic evidence of every wash."
+        "desc": "Mandatory photographic evidence."
       },
       "damageDoc": {
         "title": "Documented damages",
         "desc": "Pre-existing damages are recorded."
       },
       "liveChat": {
-        "title": "Real-time chat",
-        "desc": "Talk to your washer during service."
+        "title": "Chat with your washer",
+        "desc": "Direct communication during service."
       },
       "liveTracking": {
         "title": "Live tracking",
-        "desc": "See when it starts and finishes."
+        "desc": "See when they accept, arrive, and finish."
       },
       "qualityRated": {
-        "title": "Quality rated",
-        "desc": "Every washer has a rating."
+        "title": "Rated washers",
+        "desc": "Only the best washers."
       },
       "flexPayments": {
-        "title": "Flexible payments",
-        "desc": "Card, OXXO, SPEI, or cash."
+        "title": "Pay your way",
+        "desc": "Cash, card, OXXO, or SPEI."
       }
     },
     "pricing": {
-      "badge": "Plans from",
-      "price": "$299",
-      "period": "/mo",
-      "desc": "One wash per week. No commitments. Cancel anytime.",
-      "cta": "Get started"
+      "badge": "Washes from",
+      "price": "$149",
+      "period": "MXN",
+      "desc": "Professional exterior wash. No subscriptions. Pay only when you need it.",
+      "cta": "Request now"
     },
     "footer": {
       "rights": "All rights reserved."

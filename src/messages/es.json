@@ -54,35 +54,35 @@
       "register": "Registrarse"
     },
     "hero": {
-      "eyebrow": "Lavado profesional en tu edificio",
-      "title1": "Tu auto,",
-      "title2": "siempre",
-      "titleHighlight": "impecable",
-      "subtitle": "Lavamos tu auto mientras trabajas o descansas. Sin citas, sin filas.",
-      "subtitleBold": "Solo resultados impecables.",
-      "ctaPrimary": "Empieza gratis",
+      "eyebrow": "Lavado a domicilio en minutos",
+      "title1": "Pide tu lavado,",
+      "title2": "llega un",
+      "titleHighlight": "profesional",
+      "subtitle": "Solicita un lavado desde la app y un lavador profesional va directo a tu estacionamiento.",
+      "subtitleBold": "Asi de facil.",
+      "ctaPrimary": "Solicitar lavado",
       "ctaSecondary": "Como funciona",
-      "socialProof": "autos lavados este mes"
+      "socialProof": "lavados completados"
     },
     "howItWorks": {
       "title": "Asi de",
-      "titleHighlight": "simple",
-      "subtitle": "4 pasos. 2 minutos. Auto impecable.",
+      "titleHighlight": "rapido",
+      "subtitle": "3 pasos. 2 minutos. Auto impecable.",
       "step01": {
         "title": "Registra tu auto",
         "desc": "Placa y foto. 30 segundos."
       },
       "step02": {
-        "title": "Elige tu plan",
-        "desc": "Semanal, quincenal o unico."
+        "title": "Solicita un lavado",
+        "desc": "Elige los servicios que quieras."
       },
       "step03": {
-        "title": "Nosotros vamos",
-        "desc": "Lavamos en tu estacionamiento."
+        "title": "Un lavador acepta",
+        "desc": "Va directo a tu estacionamiento."
       },
       "step04": {
         "title": "Fotos del resultado",
-        "desc": "Evidencia antes y despues."
+        "desc": "Evidencia antes y despues. Califica."
       }
     },
     "features": {
@@ -91,35 +91,35 @@
       "subtitle": "Tecnologia que protege tu auto y te da tranquilidad total.",
       "photoEvidence": {
         "title": "Fotos antes y despues",
-        "desc": "Evidencia fotografica de cada lavado."
+        "desc": "Evidencia fotografica obligatoria."
       },
       "damageDoc": {
         "title": "Danos documentados",
         "desc": "Danos previos quedan registrados."
       },
       "liveChat": {
-        "title": "Chat en tiempo real",
-        "desc": "Habla con tu lavador durante el servicio."
+        "title": "Chat con tu lavador",
+        "desc": "Comunicacion directa durante el servicio."
       },
       "liveTracking": {
         "title": "Seguimiento en vivo",
-        "desc": "Ve cuando empieza y termina."
+        "desc": "Ve cuando acepta, llega y termina."
       },
       "qualityRated": {
-        "title": "Calidad medida",
-        "desc": "Cada lavador tiene calificacion."
+        "title": "Lavadores calificados",
+        "desc": "Solo los mejores lavadores."
       },
       "flexPayments": {
-        "title": "Pagos flexibles",
-        "desc": "Tarjeta, OXXO, SPEI o efectivo."
+        "title": "Paga como quieras",
+        "desc": "Efectivo, tarjeta, OXXO o SPEI."
       }
     },
     "pricing": {
-      "badge": "Planes desde",
-      "price": "$299",
-      "period": "/mes",
-      "desc": "Un lavado semanal. Sin compromisos. Cancela cuando quieras.",
-      "cta": "Empezar ahora"
+      "badge": "Lavados desde",
+      "price": "$149",
+      "period": "MXN",
+      "desc": "Lavado exterior profesional. Sin suscripciones. Paga solo cuando lo necesites.",
+      "cta": "Solicitar ahora"
     },
     "footer": {
       "rights": "Todos los derechos reservados."
