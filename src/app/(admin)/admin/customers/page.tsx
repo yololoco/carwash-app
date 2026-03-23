@@ -31,10 +31,25 @@ interface Customer {
   id: string;
   full_name: string;
   email: string;
+  role: string;
   created_at: string;
   subscription_count: number;
   total_spent: number;
 }
+
+const ROLE_LABELS: Record<string, string> = {
+  admin: "Administrador",
+  location_manager: "Manager",
+  car_washer: "Lavador",
+  customer: "Cliente",
+};
+
+const ROLE_COLORS: Record<string, string> = {
+  admin: "bg-red-100 text-red-800",
+  location_manager: "bg-blue-100 text-blue-800",
+  car_washer: "bg-amber-100 text-amber-800",
+  customer: "bg-green-100 text-green-800",
+};
 
 type SortKey = "name" | "spent" | "date";
 
@@ -44,15 +59,33 @@ export default function AdminCustomersPage() {
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState<SortKey>("name");
 
+  const handleRoleChange = async (userId: string, newRole: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const db = createClient() as any;
+    await db.from("profiles").update({ role: newRole }).eq("id", userId);
+
+    // If promoting to washer, create washer_profile if it doesn't exist
+    if (newRole === "car_washer") {
+      await db.from("washer_profiles").upsert(
+        { user_id: userId, hourly_rate: 150, hire_date: new Date().toISOString().split("T")[0] },
+        { onConflict: "user_id" }
+      );
+    }
+
+    setCustomers((prev) =>
+      prev.map((c) => (c.id === userId ? { ...c, role: newRole } : c))
+    );
+  };
+
   const fetchCustomers = useCallback(async () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const db = createClient() as any;
 
     // Fetch customer profiles
+    // Fetch ALL users, not just customers
     const { data: profiles } = await db
       .from("profiles")
-      .select("id, full_name, email, created_at")
-      .eq("role", "customer")
+      .select("id, full_name, email, role, created_at")
       .order("full_name");
 
     if (!profiles || profiles.length === 0) {
@@ -96,6 +129,7 @@ export default function AdminCustomersPage() {
       id: p.id as string,
       full_name: (p.full_name as string) || "Sin nombre",
       email: (p.email as string) || "",
+      role: (p.role as string) || "customer",
       created_at: p.created_at as string,
       subscription_count: subCounts[p.id as string] || 0,
       total_spent: spentTotals[p.id as string] || 0,
@@ -143,9 +177,9 @@ export default function AdminCustomersPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold">Clientes</h1>
+        <h1 className="text-2xl font-bold">Usuarios</h1>
         <p className="text-sm text-muted-foreground">
-          {customers.length} cliente{customers.length !== 1 ? "s" : ""} registrado{customers.length !== 1 ? "s" : ""}
+          {customers.length} usuario{customers.length !== 1 ? "s" : ""} registrado{customers.length !== 1 ? "s" : ""}
         </p>
       </div>
 
@@ -196,12 +230,20 @@ export default function AdminCustomersPage() {
                       {customer.email}
                     </p>
                   </div>
-                  {customer.subscription_count > 0 && (
-                    <Badge variant="secondary" className="shrink-0">
-                      <ClipboardList className="mr-1 h-3 w-3" />
-                      {customer.subscription_count}
-                    </Badge>
-                  )}
+                  <Select
+                    value={customer.role}
+                    onValueChange={(v) => v && handleRoleChange(customer.id, v)}
+                  >
+                    <SelectTrigger className={`h-7 w-auto gap-1 rounded-full border-0 px-2.5 text-[11px] font-semibold ${ROLE_COLORS[customer.role] || "bg-gray-100"}`}>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="customer">{ROLE_LABELS.customer}</SelectItem>
+                      <SelectItem value="car_washer">{ROLE_LABELS.car_washer}</SelectItem>
+                      <SelectItem value="location_manager">{ROLE_LABELS.location_manager}</SelectItem>
+                      <SelectItem value="admin">{ROLE_LABELS.admin}</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 <div className="flex items-center gap-4 text-xs text-muted-foreground">
