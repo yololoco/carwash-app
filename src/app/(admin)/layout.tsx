@@ -50,6 +50,34 @@ export default function AdminLayout({
   return (
     <div className="min-h-screen bg-background">
       <Header />
+
+      {/* Mobile horizontal scrollable nav */}
+      <div className="border-b bg-background sm:hidden">
+        <nav className="flex gap-1 overflow-x-auto px-3 py-2 scrollbar-hide">
+          {adminLinks.map((link) => {
+            const isActive =
+              link.href === "/admin"
+                ? pathname === "/admin"
+                : pathname.startsWith(link.href);
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  "flex shrink-0 items-center gap-1.5 rounded-full px-3 py-2 text-xs font-medium transition-colors",
+                  isActive
+                    ? "bg-primary/10 text-primary"
+                    : "text-muted-foreground hover:bg-muted"
+                )}
+              >
+                <link.icon className="h-3.5 w-3.5" />
+                {link.label}
+              </Link>
+            );
+          })}
+        </nav>
+      </div>
+
       <div className="mx-auto flex max-w-7xl">
         {/* Desktop Sidebar */}
         <aside className="hidden w-56 shrink-0 border-r sm:block">

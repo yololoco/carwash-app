@@ -60,10 +60,10 @@ export function CarCard({ car }: CarCardProps) {
   return (
     <Link href={`/cars/${car.id}`} className="block">
       <Card className="card-hover glow-sm">
-        <CardContent className="flex items-center gap-4 py-4">
+        <CardContent className="flex items-center gap-3 p-3 sm:gap-4 sm:p-4">
           {/* Photo or car icon */}
           {car.photo_url ? (
-            <div className="h-14 w-14 shrink-0 overflow-hidden rounded-lg">
+            <div className="h-12 w-12 shrink-0 overflow-hidden rounded-lg sm:h-14 sm:w-14">
               <img
                 src={car.photo_url}
                 alt={car.plate_number}
@@ -71,15 +71,15 @@ export function CarCard({ car }: CarCardProps) {
               />
             </div>
           ) : (
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-              <Car className="h-6 w-6 text-primary" />
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 sm:h-14 sm:w-14">
+              <Car className="h-5 w-5 text-primary sm:h-6 sm:w-6" />
             </div>
           )}
 
           {/* Info */}
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
-              <p className="font-mono text-base font-semibold tracking-wider">
+              <p className="font-mono text-sm font-semibold tracking-wider sm:text-base">
                 {car.plate_number}
               </p>
               {!car.is_active && (

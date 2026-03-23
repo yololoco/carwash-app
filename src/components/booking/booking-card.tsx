@@ -36,19 +36,25 @@ export function BookingCard({ booking }: BookingCardProps) {
   return (
     <Link href={`/bookings/${booking.id}`} className="block">
       <Card className="card-hover glow-sm overflow-hidden">
-        <CardContent className="space-y-3">
-          <div className="flex items-start justify-between">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Calendar className="h-4 w-4" />
-                <span>{formattedDate}</span>
-                <Clock className="ml-1 h-4 w-4" />
-                <span>{formattedTime}</span>
+        <CardContent className="space-y-2.5 p-3 sm:space-y-3 sm:p-4">
+          <div className="flex items-start justify-between gap-2">
+            <div className="min-w-0 space-y-1">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-sm text-muted-foreground">
+                <div className="flex items-center gap-1">
+                  <Calendar className="h-4 w-4 shrink-0" />
+                  <span>{formattedDate}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <Clock className="h-4 w-4 shrink-0" />
+                  <span>{formattedTime}</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <Car className="h-4 w-4 text-muted-foreground" />
-                <span className="font-medium">{booking.car.plate_number}</span>
-                <span className="text-sm text-muted-foreground">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
+                <div className="flex items-center gap-1">
+                  <Car className="h-4 w-4 shrink-0 text-muted-foreground" />
+                  <span className="font-medium">{booking.car.plate_number}</span>
+                </div>
+                <span className="truncate text-sm text-muted-foreground">
                   {booking.car.make} {booking.car.model}
                 </span>
               </div>
@@ -58,10 +64,10 @@ export function BookingCard({ booking }: BookingCardProps) {
 
           <div className="flex items-center justify-between text-sm">
             <div className="flex items-center gap-1 text-muted-foreground">
-              <MapPin className="h-3.5 w-3.5" />
-              <span>{booking.location.name}</span>
+              <MapPin className="h-3.5 w-3.5 shrink-0" />
+              <span className="truncate">{booking.location.name}</span>
             </div>
-            <span className="font-semibold">{formatMXN(booking.total_price)}</span>
+            <span className="shrink-0 font-semibold">{formatMXN(booking.total_price)}</span>
           </div>
 
           {booking.services.length > 0 && (

@@ -109,15 +109,15 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div>
-        <h1 className="text-2xl font-bold">Dashboard</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-xl font-bold sm:text-2xl">Dashboard</h1>
+        <p className="text-sm text-muted-foreground sm:text-base">
           Vista general de todas las operaciones de myWash.
         </p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-3 grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-3">
         {stats.map((stat) => (
           <Card key={stat.title}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -142,7 +142,7 @@ export default function AdminDashboard() {
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
-          <div className="flex items-end gap-3">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
             <div className="flex-1 space-y-1">
               <p className="text-sm text-muted-foreground">Ubicacion</p>
               <Select value={selectedLocation} onValueChange={(v) => v && setSelectedLocation(v)}>
@@ -156,7 +156,7 @@ export default function AdminDashboard() {
                 </SelectContent>
               </Select>
             </div>
-            <Button onClick={handleGenerateSchedule} disabled={generating || !selectedLocation}>
+            <Button className="min-h-[44px] w-full sm:w-auto" onClick={handleGenerateSchedule} disabled={generating || !selectedLocation}>
               {generating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CalendarCog className="mr-2 h-4 w-4" />}
               Generar
             </Button>

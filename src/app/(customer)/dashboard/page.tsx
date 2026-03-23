@@ -84,32 +84,32 @@ export default function CustomerDashboard() {
   const formattedTime = nextBooking?.scheduled_time_start?.slice(0, 5) ?? "";
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Welcome */}
       <div>
-        <h1 className="text-2xl font-bold">{t("welcome")}</h1>
+        <h1 className="text-xl font-bold sm:text-2xl">{t("welcome")}</h1>
         <p className="text-muted-foreground">
           {t("welcomeMessage")}
         </p>
       </div>
 
       {/* Quick Actions */}
-      <div className="grid grid-cols-2 gap-3">
-        <Link href="/cars/new" className={buttonVariants({ variant: "outline", className: "h-auto flex-col gap-2 py-4" })}>
+      <div className="grid grid-cols-2 gap-2 sm:gap-3">
+        <Link href="/cars/new" className={buttonVariants({ variant: "outline", className: "h-auto min-h-[44px] flex-col gap-1.5 py-3 sm:gap-2 sm:py-4" })}>
             <Plus className="h-5 w-5" />
-            <span className="text-xs">{t("quickActions.addCar")}</span>
+            <span className="text-[11px] sm:text-xs">{t("quickActions.addCar")}</span>
         </Link>
-        <Link href="/packages" className={buttonVariants({ variant: "outline", className: "h-auto flex-col gap-2 py-4" })}>
+        <Link href="/packages" className={buttonVariants({ variant: "outline", className: "h-auto min-h-[44px] flex-col gap-1.5 py-3 sm:gap-2 sm:py-4" })}>
             <Droplets className="h-5 w-5" />
-            <span className="text-xs">{t("quickActions.viewPlans")}</span>
+            <span className="text-[11px] sm:text-xs">{t("quickActions.viewPlans")}</span>
         </Link>
-        <Link href="/book" className={buttonVariants({ variant: "outline", className: "h-auto flex-col gap-2 py-4" })}>
+        <Link href="/book" className={buttonVariants({ variant: "outline", className: "h-auto min-h-[44px] flex-col gap-1.5 py-3 sm:gap-2 sm:py-4" })}>
             <Sparkles className="h-5 w-5" />
-            <span className="text-xs">{t("quickActions.singleWash")}</span>
+            <span className="text-[11px] sm:text-xs">{t("quickActions.singleWash")}</span>
         </Link>
-        <Link href="/book/emergency" className={buttonVariants({ variant: "outline", className: "h-auto flex-col gap-2 py-4" })}>
+        <Link href="/book/emergency" className={buttonVariants({ variant: "outline", className: "h-auto min-h-[44px] flex-col gap-1.5 py-3 sm:gap-2 sm:py-4" })}>
             <Zap className="h-5 w-5" />
-            <span className="text-xs">{t("quickActions.emergency")}</span>
+            <span className="text-[11px] sm:text-xs">{t("quickActions.emergency")}</span>
         </Link>
       </div>
 

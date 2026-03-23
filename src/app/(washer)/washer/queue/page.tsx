@@ -71,15 +71,15 @@ export default function WasherQueuePage() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">Mi cola de hoy</h1>
-          <p className="text-muted-foreground">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex items-center justify-between gap-2">
+        <div className="min-w-0">
+          <h1 className="text-xl font-bold sm:text-2xl">Mi cola de hoy</h1>
+          <p className="text-sm text-muted-foreground sm:text-base">
             Autos asignados para lavar hoy.
           </p>
         </div>
-        <Badge variant="outline" className="text-base">
+        <Badge variant="outline" className="shrink-0 text-sm sm:text-base">
           {bookings.length} auto{bookings.length !== 1 ? "s" : ""}
         </Badge>
       </div>
@@ -104,34 +104,34 @@ export default function WasherQueuePage() {
               href={`/washer/bookings/${booking.id}`}
             >
               <Card className="transition-shadow hover:shadow-md">
-                <CardHeader className="flex flex-row items-center justify-between pb-2">
-                  <CardTitle className="text-2xl font-bold tracking-wider">
+                <CardHeader className="flex flex-row items-center justify-between gap-2 px-3 pb-2 sm:px-6">
+                  <CardTitle className="text-lg font-bold tracking-wider sm:text-2xl">
                     {booking.car.plate_number}
                   </CardTitle>
                   <BookingStatus status={booking.status} />
                 </CardHeader>
-                <CardContent className="space-y-2">
+                <CardContent className="space-y-2 px-3 sm:px-6">
                   <p className="text-sm text-muted-foreground">
                     {booking.car.make} {booking.car.model} - {booking.car.color}
                   </p>
 
-                  <div className="flex items-center gap-4 text-sm">
+                  <div className="flex flex-wrap items-center gap-3 text-sm sm:gap-4">
                     {booking.car.parking_spot && (
                       <div className="flex items-center gap-1 text-muted-foreground">
-                        <ParkingSquare className="h-4 w-4" />
+                        <ParkingSquare className="h-4 w-4 shrink-0" />
                         <span>Cajon {booking.car.parking_spot}</span>
                       </div>
                     )}
                     <div className="flex items-center gap-1 text-muted-foreground">
-                      <Clock className="h-4 w-4" />
+                      <Clock className="h-4 w-4 shrink-0" />
                       <span>{booking.scheduled_time_start?.slice(0, 5)}</span>
                     </div>
                   </div>
 
                   {booking.customer_notes && (
-                    <div className="flex items-start gap-1 rounded-md bg-muted p-2 text-xs">
+                    <div className="flex items-start gap-1.5 rounded-md bg-muted p-2 text-xs">
                       <MessageSquare className="mt-0.5 h-3 w-3 shrink-0 text-muted-foreground" />
-                      <span>{booking.customer_notes}</span>
+                      <span className="break-words">{booking.customer_notes}</span>
                     </div>
                   )}
                 </CardContent>

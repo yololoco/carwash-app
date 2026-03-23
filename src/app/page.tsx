@@ -222,23 +222,25 @@ export default function LandingPage() {
           boxShadow: scrollY > 60 ? "0 1px 0 rgba(0,153,204,0.06), 0 4px 20px rgba(0,153,204,0.04)" : "none",
         }}
       >
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 sm:h-20">
-          <Link href="/" className="group flex items-center gap-2.5">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:h-20 sm:px-6">
+          <Link href="/" className="group flex items-center gap-2">
             <DropLogo />
-            <span className="text-xl font-bold tracking-tight">
+            <span className="text-lg font-bold tracking-tight sm:text-xl">
               my<span className="text-[#0099CC]">Wash</span>
             </span>
           </Link>
-          <div className="flex items-center gap-3">
-            <LanguageSwitcher />
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="hidden sm:block">
+              <LanguageSwitcher />
+            </div>
             <Show when="signed-out">
               <SignInButton mode="redirect">
-                <button className="rounded-full px-5 py-2 text-sm font-medium text-[#1A2B3C]/55 transition-colors hover:text-[#1A2B3C]">
+                <button className="rounded-full px-3 py-2 text-sm font-medium text-[#1A2B3C]/55 transition-colors hover:text-[#1A2B3C] sm:px-5">
                   {t("nav.login")}
                 </button>
               </SignInButton>
               <SignUpButton mode="redirect">
-                <button className="group relative overflow-hidden rounded-full bg-gradient-to-br from-[#00CFFF] via-[#00A3CC] to-[#007A99] px-6 py-2.5 text-sm font-semibold text-white shadow-[0_4px_20px_rgba(0,191,255,0.25)] transition-all hover:shadow-[0_6px_30px_rgba(0,191,255,0.35)] active:scale-[0.97]">
+                <button className="group relative overflow-hidden rounded-full bg-gradient-to-br from-[#00CFFF] via-[#00A3CC] to-[#007A99] px-4 py-2.5 text-sm font-semibold text-white shadow-[0_4px_20px_rgba(0,191,255,0.25)] transition-all hover:shadow-[0_6px_30px_rgba(0,191,255,0.35)] active:scale-[0.97] sm:px-6">
                   <span className="relative z-10">{t("nav.register")}</span>
                 </button>
               </SignUpButton>
@@ -254,7 +256,7 @@ export default function LandingPage() {
       </header>
 
       {/* ─── Hero ─── */}
-      <section className="relative z-10 flex min-h-screen items-center px-6">
+      <section className="relative z-10 flex min-h-screen items-center px-4 sm:px-6">
         <div className="mx-auto w-full max-w-7xl">
           <div className="max-w-3xl">
             {/* Eyebrow pill */}
@@ -266,7 +268,7 @@ export default function LandingPage() {
             </div>
 
             {/* Headline */}
-            <h1 className="animate-[fadeUp_0.7s_ease-out_0.35s_both] text-[2.75rem] font-extrabold leading-[1.08] tracking-tight sm:text-7xl lg:text-[5.5rem]">
+            <h1 className="animate-[fadeUp_0.7s_ease-out_0.35s_both] text-[2rem] font-extrabold leading-[1.08] tracking-tight min-[375px]:text-[2.5rem] sm:text-7xl lg:text-[5.5rem]">
               {t("hero.title1")}
               <br />
               {t("hero.title2")}{" "}
@@ -283,34 +285,34 @@ export default function LandingPage() {
             </h1>
 
             {/* Sub */}
-            <p className="mt-7 max-w-lg animate-[fadeUp_0.7s_ease-out_0.5s_both] text-lg leading-relaxed text-[#1A2B3C]/45 sm:text-xl">
+            <p className="mt-5 max-w-lg animate-[fadeUp_0.7s_ease-out_0.5s_both] text-base leading-relaxed text-[#1A2B3C]/45 sm:mt-7 sm:text-xl">
               {t("hero.subtitle")}{" "}
               <span className="font-medium text-[#1A2B3C]/75">{t("hero.subtitleBold")}</span>
             </p>
 
             {/* CTAs */}
-            <div className="mt-10 flex animate-[fadeUp_0.7s_ease-out_0.65s_both] flex-col gap-4 sm:flex-row sm:items-center">
-              <Link href="/register" className="group relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-full bg-gradient-to-br from-[#00CFFF] via-[#00A3CC] to-[#007A99] px-9 py-4 text-base font-semibold text-white shadow-[0_6px_24px_rgba(0,191,255,0.3)] transition-all hover:shadow-[0_8px_36px_rgba(0,191,255,0.4)] active:scale-[0.97]">
+            <div className="mt-8 flex animate-[fadeUp_0.7s_ease-out_0.65s_both] flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-4">
+              <Link href="/register" className="group relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-full bg-gradient-to-br from-[#00CFFF] via-[#00A3CC] to-[#007A99] px-7 py-3.5 text-sm font-semibold text-white shadow-[0_6px_24px_rgba(0,191,255,0.3)] transition-all hover:shadow-[0_8px_36px_rgba(0,191,255,0.4)] active:scale-[0.97] sm:px-9 sm:py-4 sm:text-base">
                 <span className="relative z-10">{t("hero.ctaPrimary")}</span>
                 <svg className="relative z-10 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
                 <div className="absolute inset-0 bg-white opacity-0 transition-opacity group-hover:opacity-15" />
               </Link>
-              <Link href="#como-funciona" className="group inline-flex items-center justify-center gap-2 rounded-full border border-[#1A2B3C]/8 bg-white/70 px-8 py-4 text-base font-medium text-[#1A2B3C]/60 shadow-sm backdrop-blur-sm transition-all hover:border-[#00BFFF]/25 hover:text-[#007A99] hover:shadow-md">
+              <Link href="#como-funciona" className="group inline-flex items-center justify-center gap-2 rounded-full border border-[#1A2B3C]/8 bg-white/70 px-6 py-3.5 text-sm font-medium text-[#1A2B3C]/60 shadow-sm backdrop-blur-sm transition-all hover:border-[#00BFFF]/25 hover:text-[#007A99] hover:shadow-md sm:px-8 sm:py-4 sm:text-base">
                 {t("hero.ctaSecondary")}
                 <svg className="h-4 w-4 transition-transform group-hover:translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" /></svg>
               </Link>
             </div>
 
             {/* Social proof */}
-            <div className="mt-14 flex animate-[fadeUp_0.7s_ease-out_0.8s_both] items-center gap-4">
+            <div className="mt-10 flex animate-[fadeUp_0.7s_ease-out_0.8s_both] items-center gap-3 sm:mt-14 sm:gap-4">
               <div className="flex -space-x-2.5">
                 {["#0099CC", "#00BFFF", "#007A99", "#00A3CC", "#005F73"].map((c, i) => (
-                  <div key={i} className="flex h-9 w-9 items-center justify-center rounded-full border-[2.5px] border-white text-[10px] font-bold text-white shadow-sm" style={{ backgroundColor: c }}>
+                  <div key={i} className="flex h-8 w-8 items-center justify-center rounded-full border-[2.5px] border-white text-[9px] font-bold text-white shadow-sm sm:h-9 sm:w-9 sm:text-[10px]" style={{ backgroundColor: c }}>
                     {["JR", "MA", "LC", "PG", "DF"][i]}
                   </div>
                 ))}
               </div>
-              <div className="text-sm text-[#1A2B3C]/35">
+              <div className="text-xs text-[#1A2B3C]/35 sm:text-sm">
                 <span className="font-bold text-[#1A2B3C]/65">200+</span> {t("hero.socialProof")}
               </div>
             </div>
@@ -329,7 +331,7 @@ export default function LandingPage() {
       <WaveDivider color="#F4FBFF" />
 
       {/* ─── How it works ─── */}
-      <section id="como-funciona" className="relative z-10 bg-[#F4FBFF] px-6 py-24">
+      <section id="como-funciona" className="relative z-10 bg-[#F4FBFF] px-4 py-16 sm:px-6 sm:py-24">
         <div className="mx-auto max-w-7xl">
           <div className="text-center">
             <div className="mb-4 inline-flex items-center gap-1">
@@ -337,13 +339,13 @@ export default function LandingPage() {
               <svg className="h-3 w-3 opacity-40" viewBox="0 0 32 32" fill="#00BFFF"><path d="M16 3l8.49 8.49a12 12 0 11-16.97 0L16 3z" /></svg>
               <svg className="h-2 w-2 opacity-20" viewBox="0 0 32 32" fill="#00BFFF"><path d="M16 3l8.49 8.49a12 12 0 11-16.97 0L16 3z" /></svg>
             </div>
-            <h2 className="text-3xl font-bold tracking-tight sm:text-5xl">
+            <h2 className="text-2xl font-bold tracking-tight sm:text-5xl">
               {t("howItWorks.title")} <span className="text-[#0099CC]">{t("howItWorks.titleHighlight")}</span>
             </h2>
             <p className="mt-3 text-[#1A2B3C]/35">{t("howItWorks.subtitle")}</p>
           </div>
 
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid gap-3 sm:mt-14 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
             {steps.map((item) => (
               <RippleCard
                 key={item.step}
@@ -364,14 +366,14 @@ export default function LandingPage() {
       <WaveDivider flip color="#F4FBFF" />
 
       {/* ─── Features ─── */}
-      <section className="relative z-10 px-6 py-24">
+      <section className="relative z-10 px-4 py-16 sm:px-6 sm:py-24">
         <div className="mx-auto max-w-7xl">
-          <div className="grid gap-14 lg:grid-cols-2 lg:items-center">
+          <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-14">
             <div>
-              <h2 className="text-3xl font-bold tracking-tight sm:text-5xl">
+              <h2 className="text-2xl font-bold tracking-tight sm:text-5xl">
                 {t("features.title")} <span className="text-[#0099CC]">{t("features.titleHighlight")}</span>
               </h2>
-              <p className="mt-4 max-w-md text-lg text-[#1A2B3C]/40">
+              <p className="mt-4 max-w-md text-base text-[#1A2B3C]/40 sm:text-lg">
                 {t("features.subtitle")}
               </p>
             </div>
@@ -397,19 +399,19 @@ export default function LandingPage() {
       <WaveDivider color="#F0FAFF" />
 
       {/* ─── Pricing ─── */}
-      <section className="relative z-10 bg-[#F0FAFF] px-6 py-24">
+      <section className="relative z-10 bg-[#F0FAFF] px-4 py-16 sm:px-6 sm:py-24">
         <Sparkles />
         <div className="relative mx-auto max-w-3xl text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-[#00BFFF]/10 bg-white/80 px-4 py-2 shadow-sm backdrop-blur-sm">
             <DropLogo size={14} />
             <span className="text-xs font-semibold tracking-wide text-[#007A99]">{t("pricing.badge")}</span>
           </div>
-          <div className="mt-6 text-6xl font-extrabold tracking-tight sm:text-8xl">
+          <div className="mt-6 text-5xl font-extrabold tracking-tight sm:text-8xl">
             <span className="text-[#1A2B3C]">{t("pricing.price")}</span>
             <span className="ml-1 text-xl font-medium text-[#1A2B3C]/25 sm:text-2xl">{t("pricing.period")}</span>
           </div>
           <p className="mt-4 text-[#1A2B3C]/40">{t("pricing.desc")}</p>
-          <Link href="/register" className="group relative mt-9 inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-gradient-to-br from-[#00CFFF] via-[#00A3CC] to-[#007A99] px-10 py-4 text-lg font-semibold text-white shadow-[0_6px_30px_rgba(0,191,255,0.3)] transition-all hover:shadow-[0_10px_40px_rgba(0,191,255,0.4)] active:scale-[0.97]">
+          <Link href="/register" className="group relative mt-9 inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-gradient-to-br from-[#00CFFF] via-[#00A3CC] to-[#007A99] px-8 py-3.5 text-base font-semibold text-white shadow-[0_6px_30px_rgba(0,191,255,0.3)] transition-all hover:shadow-[0_10px_40px_rgba(0,191,255,0.4)] active:scale-[0.97] sm:px-10 sm:py-4 sm:text-lg">
             <span className="relative z-10">{t("pricing.cta")}</span>
             <svg className="relative z-10 h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
             <div className="absolute inset-0 bg-white opacity-0 transition-opacity group-hover:opacity-15" />
@@ -420,7 +422,7 @@ export default function LandingPage() {
       <WaveDivider flip color="#F0FAFF" />
 
       {/* ─── Footer ─── */}
-      <footer className="relative z-10 border-t border-[#E0F0FA] px-6 py-10">
+      <footer className="relative z-10 border-t border-[#E0F0FA] px-4 py-8 sm:px-6 sm:py-10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 sm:flex-row">
           <div className="flex items-center gap-2">
             <DropLogo size={20} />
