@@ -1,3 +1,8 @@
+// Phase 2: Subscription-based scheduling — kept for future reactivation.
+// The app has pivoted to an on-demand marketplace model where washers
+// accept requests in real-time rather than following a pre-generated schedule.
+// This endpoint remains functional for admin use but is not linked from active UI.
+
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { createAdminClient } from "@/lib/supabase/admin";

@@ -1,3 +1,7 @@
+// Phase 2: Subscriptions management page — kept for future reactivation.
+// Not linked from active navigation. The app now uses an on-demand model.
+// Existing subscribers can still manage their subscriptions via direct URL.
+
 "use client";
 
 import { Suspense, useEffect, useState } from "react";

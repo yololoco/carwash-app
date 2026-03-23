@@ -43,7 +43,7 @@ export function Header() {
           )}
           {role === "car_washer" && (
             <Link
-              href="/washer/queue"
+              href="/washer/requests"
               className="flex items-center gap-1.5 rounded-full bg-[#0099CC]/8 px-2.5 py-1.5 text-xs font-semibold text-[#0099CC] transition-colors hover:bg-[#0099CC]/15 sm:px-3"
             >
               <Wrench className="h-3.5 w-3.5" />

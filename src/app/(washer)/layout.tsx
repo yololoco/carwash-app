@@ -2,13 +2,13 @@
 
 import { Header } from "@/components/layout/header";
 import { MobileNav } from "@/components/layout/mobile-nav";
-import { Bell, CalendarCheck, DollarSign, User } from "lucide-react";
+import { Bell, CalendarCheck, DollarSign, ClipboardList } from "lucide-react";
 
 const washerNav = [
   { href: "/washer/requests", label: "Solicitudes", icon: Bell },
   { href: "/washer/today", label: "Mi dia", icon: CalendarCheck },
   { href: "/washer/earnings", label: "Ganancias", icon: DollarSign },
-  { href: "/washer/profile", label: "Perfil", icon: User },
+  { href: "/washer/queue", label: "Mi cola", icon: ClipboardList },
 ];
 
 export default function WasherLayout({

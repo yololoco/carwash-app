@@ -1,3 +1,8 @@
+// Phase 2: Subscription flow — kept for future reactivation.
+// The app has pivoted to an on-demand marketplace model.
+// This endpoint is NOT linked from any active navigation but remains
+// functional for direct URL access and legacy subscription pages.
+
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { createAdminClient } from "@/lib/supabase/admin";

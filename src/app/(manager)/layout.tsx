@@ -2,14 +2,13 @@
 
 import { Header } from "@/components/layout/header";
 import { MobileNav } from "@/components/layout/mobile-nav";
-import { LayoutDashboard, Calendar, Users, Boxes, UserCheck, Banknote } from "lucide-react";
+import { LayoutDashboard, Calendar, Users, Boxes, Banknote } from "lucide-react";
 
 const managerNav = [
   { href: "/manager/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/manager/schedule", label: "Agenda", icon: Calendar },
   { href: "/manager/staff", label: "Personal", icon: Users },
   { href: "/manager/inventory", label: "Inventario", icon: Boxes },
-  { href: "/manager/customers", label: "Clientes", icon: UserCheck },
   { href: "/manager/cuotas", label: "Cuotas", icon: Banknote },
 ];
 

@@ -26,10 +26,11 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     return NextResponse.json({ error: "Esta solicitud ya no esta disponible" }, { status: 409 });
   }
 
-  // Accept the request
+  // Accept the request — set both assigned_washer_id (legacy) and washer_id (on-demand)
   await db.from("bookings").update({
     status: "confirmed",
     assigned_washer_id: profile.id,
+    washer_id: profile.id,
     accepted_at: new Date().toISOString(),
   }).eq("id", bookingId);
 

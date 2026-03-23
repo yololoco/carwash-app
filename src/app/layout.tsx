@@ -22,7 +22,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "myWash — Tu auto, tu estilo, tu wash",
   description:
-    "Lavamos tu auto mientras trabajas o descansas. Suscribete y olvidate de buscar donde lavar tu carro.",
+    "Lavado de autos a domicilio en minutos. Solicita un lavado y un lavador profesional va a ti.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "myWash",
-    description: "Lavado de autos en tu edificio. Suscripciones y lavados unicos.",
+    description: "Lavado de autos a domicilio. Solicita y un lavador profesional va a ti.",
     type: "website",
   },
 };

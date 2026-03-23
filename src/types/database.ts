@@ -7,6 +7,9 @@ export type SubscriptionStatus = "active" | "paused" | "cancelled" | "past_due" 
 export type BookingStatus =
   | "pending"
   | "confirmed"
+  | "requested"
+  | "broadcast"
+  | "accepted"
   | "washer_en_route"
   | "in_progress"
   | "completed"
@@ -251,6 +254,7 @@ export interface Booking {
   currency: string;
   is_one_time: boolean;
   is_emergency: boolean;
+  is_on_demand: boolean;
   template_id: string | null;
   queue_position: number | null;
   priority_score: number;
@@ -262,6 +266,15 @@ export interface Booking {
   no_show_at: string | null;
   rescheduled_from: string | null;
   weather_delay_until: string | null;
+  // On-demand marketplace fields
+  estimated_price: number | null;
+  commission_rate: number | null;
+  commission_amount: number | null;
+  washer_earnings: number | null;
+  broadcast_expires_at: string | null;
+  accepted_at: string | null;
+  completed_at: string | null;
+  washer_id: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -420,6 +433,35 @@ export interface Message {
   is_read: boolean;
   created_at: string;
 }
+
+// ─── On-demand marketplace types ─────────────────────────────
+
+export type CuotaStatus = "pending" | "paid" | "waived" | "refunded";
+export type WashRequestResponseType = "accepted" | "rejected" | "expired";
+
+export interface WasherCuota {
+  id: string;
+  washer_id: string;
+  location_id: string;
+  date: string;
+  amount: number;
+  status: CuotaStatus;
+  confirmed_by: string | null;
+  confirmed_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface WashRequestResponse {
+  id: string;
+  booking_id: string;
+  washer_id: string;
+  response: WashRequestResponseType;
+  responded_at: string;
+  created_at: string;
+}
+
+// ─── Upsell ─────────────────────────────────────────────────
 
 export interface UpsellOffer {
   id: string;

@@ -1,3 +1,6 @@
+// Phase 2: Package detail page — kept for future reactivation.
+// Not linked from active navigation. The app now uses an on-demand model.
+
 "use client";
 
 import { useEffect, useState } from "react";

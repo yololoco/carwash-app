@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRealtime } from "@/hooks/use-realtime";
+import { useAuth } from "@/hooks/use-auth";
 
 interface Message {
   id: string;
@@ -15,6 +16,7 @@ interface Message {
 }
 
 export function useChat(bookingId: string) {
+  const { user } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -51,9 +53,6 @@ export function useChat(bookingId: string) {
 
   const sendMessage = useCallback(
     async (content: string, messageType = "text", metadata: Record<string, unknown> | null = null) => {
-      const {
-        data: { user },
-      } = await db.auth.getUser();
       if (!user) return;
 
       await db.from("messages").insert({
@@ -64,7 +63,7 @@ export function useChat(bookingId: string) {
         metadata,
       });
     },
-    [bookingId]
+    [bookingId, user]
   );
 
   return { messages, sendMessage, loading };

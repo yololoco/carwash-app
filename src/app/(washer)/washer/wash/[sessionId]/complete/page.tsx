@@ -84,16 +84,33 @@ export default function CompleteWashPage() {
         })
         .eq("id", sessionId);
 
-      // d) Update booking status to completed
+      // d) Update booking status to completed and calculate washer earnings
       if (sessionData?.booking_id) {
+        // Fetch booking price info for earnings calculation
+        const { data: bookingData } = await db
+          .from("bookings")
+          .select("total_price, commission_rate")
+          .eq("id", sessionData.booking_id)
+          .single();
+
+        const totalPrice = bookingData?.total_price || 0;
+        const commissionRate = bookingData?.commission_rate || 15;
+        const commissionAmount = totalPrice * (commissionRate / 100);
+        const washerEarnings = totalPrice - commissionAmount;
+
         await db
           .from("bookings")
-          .update({ status: "completed" })
+          .update({
+            status: "completed",
+            completed_at: now.toISOString(),
+            commission_amount: commissionAmount,
+            washer_earnings: washerEarnings,
+          })
           .eq("id", sessionData.booking_id);
       }
 
-      // e) Navigate to queue with success
-      router.push("/washer/queue?completed=true");
+      // e) Navigate to requests with success
+      router.push("/washer/requests?completed=true");
     } catch (err) {
       console.error("Error al finalizar lavado:", err);
       setSubmitting(false);
